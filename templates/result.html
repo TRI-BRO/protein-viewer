@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+</head>
+<body>
+    <h1>Predicted 3D Structure</h1>
+    <div id="viewer" style="width: 800px; height: 600px;"></div>
+    <a href="/download?data={{ pdb_data | urlencode }}">Download PDB File</a>
+    <br>
+    <a href="/">Try Another</a>
+
+    <script>
+        let pdbData = `{{ pdb_data }}`;
+        let viewer = $3Dmol.createViewer("viewer");
+        viewer.addModel(pdbData, "pdb");
+        viewer.setStyle({}, {cartoon: {color: 'spectrum'}});
+        viewer.zoomTo();
+        viewer.render();
+    </script>
+</body>
+</html>
