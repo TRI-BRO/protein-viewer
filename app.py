@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, Response
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -14,7 +15,6 @@ def index():
         if not validate_sequence(sequence):
             return "Invalid protein sequence!"
         
-        # Get 3D structure from ESMFold
         try:
             response = requests.post(
                 "https://api.esmatlas.com/foldSequence/v1/pdb/",
@@ -38,4 +38,5 @@ def download_pdb():
     )
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
